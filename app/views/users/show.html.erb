@@ -15,7 +15,7 @@
       <p>Address Name: <%= address.nickname %></p>
       <p><%= address.address %></p>
       <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
-      <hr>
+      <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
     </section>
   <% end %>
 </section>
