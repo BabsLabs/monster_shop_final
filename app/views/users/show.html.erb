@@ -15,10 +15,9 @@
       <p>Address Name: <%= address.nickname %></p>
       <p><%= address.address %></p>
       <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
-      <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
+        <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
     </section>
   <% end %>
 </section>
-<% if not_a_merchant_or_admin? %>
-  <%= link_to 'Add An Address', '/profile/addresses/new' %>
-<% end %>
+
+<%= link_to 'Add An Address', '/profile/addresses/new' %>

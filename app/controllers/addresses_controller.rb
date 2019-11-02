@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-  before_action :exclude_admin_and_merchants
+  before_action :exclude_admin
 
   def new
   end
