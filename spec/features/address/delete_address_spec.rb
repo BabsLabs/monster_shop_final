@@ -70,7 +70,7 @@ describe "As a user" do
         expect(page).to have_content('Denver')
         expect(page).to have_content('CO')
         expect(page).to have_content('80008')
-        expect(page).to have_content('Address Name: Home')
+        expect(page).to have_content('Address Name: Default')
         expect(page).to have_link('Edit Address')
         expect(page).to_not have_link('Delete Address')
       end
@@ -84,6 +84,33 @@ describe "As a user" do
         expect(page).to have_link('Edit Address')
         expect(page).to have_link('Delete Address')
       end
+    end
+  end
+end
+
+
+describe "As a user" do
+  describe "when I visit my profile" do
+    xit "cannot delete my only address" do
+      user = User.create!(name: 'Merchant', address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888, email: 'merchant@merchant.com', password: 'securepassword')
+      address = user.addresses.create!(address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/profile'
+
+      click_link 'Edit Address'
+
+      expect(current_path).to eq("/profile/addresses/#{address.id}/edit")
+
+      fill_in :address, with: '567 State Ave'
+      fill_in :city, with: 'Denver'
+      fill_in :state, with: 'CO'
+      fill_in :zip, with: '80218'
+      fill_in :nickname, with: 'Default'
+      click_button 'Update Address'
+
+      expect(page).to have_content('You cannot update your Default addresses nickname.')
     end
   end
 end

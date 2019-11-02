@@ -22,7 +22,7 @@ RSpec.describe "As a user" do
       expect(current_path).to eq(profile_path)
 
       within ".addresses" do
-        expect(page).to have_content("Address Name: Home")
+        expect(page).to have_content("Address Name: Default")
         expect(page).to have_content("456 Mountain St")
         expect(page).to have_content("Aspen")
         expect(page).to have_content("CO")

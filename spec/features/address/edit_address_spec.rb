@@ -12,25 +12,25 @@ describe "As a merchant" do
 
       click_link 'Edit Address'
 
-      expect(page).to have_content("Edit Your Home Address")
+      expect(page).to have_content("Edit Your Default Address")
 
       fill_in :address, with: '567 State Ave'
       fill_in :city, with: 'Denver'
       fill_in :state, with: 'CO'
       fill_in :zip, with: '80218'
-      fill_in :nickname, with: 'Home'
+      fill_in :nickname, with: 'Default'
       click_button 'Update Address'
 
       expect(current_path).to eq('/profile')
 
-      expect(page).to have_content("You have updated your Home address")
+      expect(page).to have_content("You have updated your Default address")
 
     # ask about why this fails!!!
       # expect(page).to have_content('567 State Ave')
       # expect(page).to have_content('Denver')
       # expect(page).to have_content('CO')
       # expect(page).to have_content('80218')
-      # expect(page).to have_content('Address Name: Home')
+      # expect(page).to have_content('Address Name: Default')
       # expect(page).to have_link('Edit Address')
     end
   end
@@ -59,24 +59,24 @@ describe "As a user" do
 
       click_link 'Edit Address'
 
-      expect(page).to have_content("Edit Your Home Address")
+      expect(page).to have_content("Edit Your Default Address")
 
       fill_in :address, with: '567 State Ave'
       fill_in :city, with: 'Denver'
       fill_in :state, with: 'CO'
       fill_in :zip, with: '80218'
-      fill_in :nickname, with: 'Home'
+      fill_in :nickname, with: 'Default'
       click_button 'Update Address'
 
       expect(current_path).to eq('/profile')
 
-      expect(page).to have_content("You have updated your Home address")
+      expect(page).to have_content("You have updated your Default address")
 
       expect(page).to have_content('567 State Ave')
       expect(page).to have_content('Denver')
       expect(page).to have_content('CO')
       expect(page).to have_content('80218')
-      expect(page).to have_content('Address Name: Home')
+      expect(page).to have_content('Address Name: Default')
       expect(page).to have_link('Edit Address')
     end
   end

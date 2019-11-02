@@ -94,7 +94,7 @@ RSpec.describe "As a user" do
         fill_in :city, with: 'Martinez'
         fill_in :state, with: 'CA'
         fill_in :zip, with: '94553'
-        fill_in :nickname, with: 'Home'
+        fill_in :nickname, with: 'Default'
         click_button 'Create Address'
 
         expect(page).to have_content("Nickname has already been taken")
