@@ -56,41 +56,6 @@ end
 
 describe "As a user" do
   describe "when I visit my profile" do
-    it "cannot delete my home address" do
-      user = User.create!(name: 'User Dude', address: '123 Fake St', city: 'Denver', state: 'CO', zip: 80008, email: ' user@user.com', password: '12345')
-      address_1 = user.addresses.create!(address: '123 Fake St', city: 'Denver', state: 'CO', zip: 80008)
-      address_2 = user.addresses.create!(address: '456 Mountain Blvd', city: 'Aspen', state: 'CO', zip: 80345, nickname: 'Mountain House')
-
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
-      visit '/profile'
-
-      within "#address-#{address_1.id}" do
-        expect(page).to have_content('123 Fake St')
-        expect(page).to have_content('Denver')
-        expect(page).to have_content('CO')
-        expect(page).to have_content('80008')
-        expect(page).to have_content('Address Name: Default')
-        expect(page).to have_link('Edit Address')
-        expect(page).to_not have_link('Delete Address')
-      end
-
-      within "#address-#{address_2.id}" do
-        expect(page).to have_content('456 Mountain Blvd')
-        expect(page).to have_content('Aspen')
-        expect(page).to have_content('CO')
-        expect(page).to have_content('80345')
-        expect(page).to have_content('Address Name: Mountain House')
-        expect(page).to have_link('Edit Address')
-        expect(page).to have_link('Delete Address')
-      end
-    end
-  end
-end
-
-
-describe "As a user" do
-  describe "when I visit my profile" do
     it "cannot see a link to delete my Default address" do
       user = User.create!(name: 'Merchant', address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888, email: 'merchant@merchant.com', password: 'securepassword')
       address = user.addresses.create!(address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888)
