@@ -23,10 +23,10 @@ describe "As a user" do
 
       click_link 'Add An Address'
 
-      fill_in :address, with: '567 State Ave'
-      fill_in :city, with: 'Denver'
-      fill_in :state, with: 'CO'
-      fill_in :zip, with: '80218'
+      fill_in :address, with: '567 Stately Ave'
+      fill_in :city, with: 'Chicago'
+      fill_in :state, with: 'IL'
+      fill_in :zip, with: '99999'
       fill_in :nickname, with: 'Apartment'
       click_button 'Create Address'
 
@@ -35,23 +35,21 @@ describe "As a user" do
       address_2 = Address.all.last
 
       within "#address-#{address_2.id}" do
-        expect(page).to have_content('567 State Ave')
-        expect(page).to have_content('Denver')
-        expect(page).to have_content('CO')
-        expect(page).to have_content('80218')
+        expect(page).to have_content('567 Stately Ave')
+        expect(page).to have_content('Chicago')
+        expect(page).to have_content('IL')
+        expect(page).to have_content('99999')
         expect(page).to have_content('Address Name: Apartment')
         expect(page).to have_link('Edit Address')
         click_link('Delete Address')
       end
 
       expect(current_path).to eq('/profile')
-      expect(page).to_not have_content('567 State Ave')
-      expect(page).to_not have_content('Denver')
-      expect(page).to_not have_content('CO')
-      expect(page).to_not have_content('80218')
+      expect(page).to_not have_content('567 Stately Ave')
+      expect(page).to_not have_content('Chicago')
+      expect(page).to_not have_content('IL')
+      expect(page).to_not have_content('99999')
       expect(page).to_not have_content('Address Name: Apartment')
-      expect(page).to_not have_link('Edit Address')
-
     end
   end
 end
