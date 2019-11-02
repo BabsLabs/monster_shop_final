@@ -1,0 +1,21 @@
+<h1>Add A New Address</h1>
+
+<%= form_tag "/profile/addresses", method: :post do %>
+
+ <%= label_tag :address %>
+ <%= text_field_tag :address %>
+
+ <%= label_tag :city %>
+ <%= text_field_tag :city %>
+
+ <%= label_tag :state %>
+ <%= text_field_tag :state %>
+
+ <%= label_tag :zip %>
+ <%= text_field_tag :zip %>
+
+ <%= label_tag :nickname %>
+ <%= text_field_tag :nickname %>
+
+ <%= submit_tag 'Create Address' %>
+<% end %>

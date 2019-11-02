@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   helper_method :cart,
                 :current_user,
                 :current_merchant_user?,
-                :current_admin?
+                :current_admin?,
+                :not_a_merchant_or_admin?
 
   def cart
     @cart ||= Cart.new(session[:cart])
@@ -22,6 +23,10 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  def not_a_merchant_or_admin?
+    current_user && !(current_user.admin? || current_user.merchant_admin?)
+  end
+
   def require_user
     render file: 'public/404', status: 404 unless current_user
   end
@@ -36,6 +41,10 @@ class ApplicationController < ActionController::Base
 
   def exclude_admin
     render file: 'public/404', status: 404 if current_admin?
+  end
+
+  def exclude_admin_and_merchants
+    render file: 'public/404', status: 404 if current_user.admin? || current_user.merchant_admin?
   end
 
   def generate_flash(resource)

@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.addresses.create(address_params)
       session[:user_id] = @user.id
       flash[:notice] = "Welcome, #{@user.name}!"
       redirect_to profile_path
@@ -33,6 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
+      @user.addresses.where(nickname: 'Home').update(address_params)
       flash[:notice] = 'Profile has been updated!'
       redirect_to profile_path
     else
@@ -45,5 +47,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
+  end
+
+  def address_params
+    params.require(:user).permit(:address, :city, :state, :zip)
   end
 end
