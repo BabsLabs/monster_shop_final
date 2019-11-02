@@ -13,9 +13,10 @@
   <section class='addresses'>
     <% current_user.addresses.each do |address| %>
       <section id="address-<%= address.id %>">
-        <p>Name: <%= address.nickname %></p>
+        <p>Address Name: <%= address.nickname %></p>
         <p><%= address.address %></p>
         <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
+        <hr>
       </section>
     <% end %>
   </section>
