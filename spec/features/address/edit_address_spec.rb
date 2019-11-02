@@ -4,8 +4,7 @@ describe "As a merchant" do
   describe "when I visit my profile" do
     it "can edit an address" do
       merchant = User.create!(name: 'Merchant', address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888, email: 'merchant@merchant.com', password: 'securepassword', role: 1)
-
-      address_2 = merchant.addresses.create!(address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888)
+      address = merchant.addresses.create!(address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
