@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get '/profile/orders/:id', to: 'user/orders#show'
   delete '/profile/orders/:id', to: 'user/orders#cancel'
 
+  get '/profile/addresses/new', to: 'addresses#new'
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
@@ -47,4 +49,5 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     patch '/orders/:id/ship', to: 'orders#ship'
   end
+
 end
