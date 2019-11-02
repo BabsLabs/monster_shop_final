@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20191102003614) do
     t.string "city"
     t.string "state"
     t.integer "zip"
-    t.string "nickname", default: "Home"
+    t.string "nickname", default: "Default"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

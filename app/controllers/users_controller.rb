@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      @user.addresses.where(nickname: 'Home').update(address_params)
+      @user.addresses.where(nickname: 'Default').update(address_params)
       flash[:notice] = 'Profile has been updated!'
       redirect_to profile_path
     else

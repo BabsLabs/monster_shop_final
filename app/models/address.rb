@@ -8,7 +8,7 @@ class Address < ApplicationRecord
 
   belongs_to :user
 
-  def not_home_address?
-    self.nickname != 'Home'
+  def not_default_address?
+    self.nickname != 'Default'
   end
 end

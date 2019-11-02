@@ -16,7 +16,7 @@
       <p><%= address.address %></p>
       <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
         <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
-        <% if address.not_home_address? %>
+        <% if address.not_default_address? %>
           <%= link_to 'Delete Address', "/profile/addresses/#{address.id}", method: :delete %>
         <% end %>
     </section>
