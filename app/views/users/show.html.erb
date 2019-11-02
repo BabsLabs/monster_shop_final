@@ -9,16 +9,16 @@
 
 <%= link_to 'My Orders', '/profile/orders' %>
 
-<% if !current_admin? %>
-  <section class='addresses'>
-    <% current_user.addresses.each do |address| %>
-      <section id="address-<%= address.id %>">
-        <p>Address Name: <%= address.nickname %></p>
-        <p><%= address.address %></p>
-        <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
-        <hr>
-      </section>
-    <% end %>
-  </section>
+<section class='addresses'>
+  <% current_user.addresses.each do |address| %>
+    <section id="address-<%= address.id %>">
+      <p>Address Name: <%= address.nickname %></p>
+      <p><%= address.address %></p>
+      <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
+      <hr>
+    </section>
+  <% end %>
+</section>
+<% if not_a_merchant_or_admin? %>
   <%= link_to 'Add An Address', '/profile/addresses/new' %>
 <% end %>
