@@ -17,23 +17,33 @@ RSpec.describe "As a user" do
 
       expect(current_path).to eq('/profile/addresses/new')
 
-      fill_in 'Address', with: '456 Mountain St'
-      fill_in 'City', with: 'Aspen'
-      fill_in 'State', with: 'CO'
-      fill_in 'Zip', with: '80218'
-      fill_in 'Nickname', with: 'Mountain House'
-      click_button 'Add Address'
+      fill_in :address, with: '1670 Merelo Ave'
+      fill_in :city, with: 'Martinez'
+      fill_in :state, with: 'CA'
+      fill_in :zip, with: '94553'
+      fill_in :nickname, with: 'California House'
+      click_button 'Create Address'
 
       expect(current_path).to eq('/profile')
 
-      address = user.addresses.last
+      address_1 = @user.addresses.first
 
-      within "address-#{address.id}" do
-        expect(page).to have_content("Address Name: Mountain House")
-        expect(page).to have_content("456 Mountain St")
-        expect(page).to have_content("Aspen")
+      within "#address-#{address_1.id}" do
+        expect(page).to have_content("Address Name: Home")
+        expect(page).to have_content("123 Main St")
+        expect(page).to have_content("Denver")
         expect(page).to have_content("CO")
         expect(page).to have_content("80218")
+      end
+
+      address_2 = @user.addresses.last
+
+      within "#address-#{address_2.id}" do
+        expect(page).to have_content("Address Name: California House")
+        expect(page).to have_content("1670 Merelo Ave")
+        expect(page).to have_content("Martinez")
+        expect(page).to have_content("CA")
+        expect(page).to have_content("94553")
       end
 
     end
