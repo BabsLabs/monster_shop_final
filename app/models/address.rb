@@ -8,4 +8,8 @@ class Address < ApplicationRecord
 
   belongs_to :user
   has_many :orders
+
+  def no_shipped_orders?
+    !orders.where(status: 'shipped').any?
+  end
 end
