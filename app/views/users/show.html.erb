@@ -15,8 +15,10 @@
       <p>Address Name: <%= address.nickname %></p>
       <p><%= address.address %></p>
       <p><%= address.city %> <%= address.state %>, <%= address.zip %></p>
-        <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
+      <%= link_to 'Edit Address', "/profile/addresses/#{address.id}/edit" %>
+      <% if address.no_shipped_orders? %>
         <%= link_to 'Delete Address', "/profile/addresses/#{address.id}", method: :delete %>
+      <% end %>
     </section>
   <% end %>
 </section>
