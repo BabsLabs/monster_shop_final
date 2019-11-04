@@ -43,4 +43,8 @@ class Order < ApplicationRecord
   def self.by_status
     order(:status)
   end
+
+  def is_a_pending_order?
+    status == 'pending'
+  end
 end

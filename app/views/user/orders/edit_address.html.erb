@@ -1,0 +1,6 @@
+<h1>Edit Your Shipping Address For Order Number <%= link_to "#{@order.id}", "/profile/orders/#{@order.id}" %></h1>
+
+<%= form_tag "/profile/orders/#{@order.id}", method: :patch do %>
+  <%= select_tag(:address_id, options_for_select(@address_options)) %>
+  <%= submit_tag 'Update Address'%>
+<% end %>
