@@ -2,11 +2,22 @@
 
 <% @orders.each do |order| %>
   <section id="order-<%= order.id %>">
-    <%= link_to order.id, "/profile/orders/#{order.id}" %>
+    <p>Order ID: <%= link_to order.id, "/profile/orders/#{order.id}" %></p>
     <p>Created On: <%= order.created_at %></p>
     <p>Updated On: <%= order.updated_at %></p>
     <p>Status: <%= order.status %></p>
     <p><%= order.count_of_items %> items</p>
     <p>Total: <%= number_to_currency(order.grand_total) %></p>
+
+    <section id="<%= order.id %>-shipping">
+      <h3>Shipping Info</h3>
+      <p>This Order Is Going To Your: <%= order.address.nickname %></p>
+      <p><%= order.address.address %></p>
+      <p><%= order.address.city %> <%= order.address.state %>, <%= order.address.zip %></p>
+      <% if order.is_a_pending_order? %>
+        <%= link_to 'Edit Shipping Address', "/profile/orders/#{order.id}/edit_address" %>
+      <% end %>
+    </section>
+    <hr>
   </section>
 <% end %>

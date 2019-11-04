@@ -7,4 +7,9 @@ class Address < ApplicationRecord
   validates_uniqueness_of :nickname, scope: :user_id
 
   belongs_to :user
+  has_many :orders
+
+  def no_shipped_orders?
+    !orders.where(status: 'shipped').any?
+  end
 end

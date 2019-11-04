@@ -15,4 +15,10 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
 
   enum role: ['default', 'merchant_admin', 'admin']
+
+  def has_no_addresses?
+    if self.addresses.any? == false
+      true
+    end
+  end
 end

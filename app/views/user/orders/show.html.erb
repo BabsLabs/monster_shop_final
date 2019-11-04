@@ -16,3 +16,12 @@
     <p>Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
   </section>
 <% end %>
+
+<h2>Shipping Info</h2>
+<section class="shipping-info">
+  <%= @order.address.nickname %>
+  <%= @order.address.address %>
+  <%= @order.address.city %>
+  <%= @order.address.state %>
+  <%= @order.address.zip %>
+</section>
