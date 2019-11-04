@@ -15,7 +15,9 @@ class CartController < ApplicationController
   end
 
   def show
-    @address_options = current_user.addresses.map{ |a| [ a.nickname, a.id ] }
+    if current_user
+      @address_options = current_user.addresses.map{ |a| [ a.nickname, a.id ] }
+    end
   end
 
   def empty

@@ -22,7 +22,7 @@
         <%= select_tag(:address_id, options_for_select(@address_options)) %>
         <%= submit_tag 'Check Out' %>
       <% end %>
-    <% else %>
+    <% elsif %>
       <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>
   </section>
