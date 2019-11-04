@@ -14,7 +14,7 @@ class User::OrdersController < ApplicationController
       flash[:error] = 'You must add an address to checkout!'
       redirect_to '/profile/addresses/new'
     else
-      order = current_user.orders.new
+      order = current_user.orders.new(address_id: params[:address_id])
       order.save
         cart.items.each do |item|
           order.order_items.create({
