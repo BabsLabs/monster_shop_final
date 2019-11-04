@@ -80,5 +80,27 @@ describe "As a user" do
       expect(page).to have_content('Address Name: Home')
       expect(page).to have_link('Edit Address')
     end
+
+    it "sees and error if it edits an address incorrectly" do
+      merchant = User.create!(name: 'Merchant', address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888, email: 'merchant@merchant.com', password: 'securepassword', role: 1)
+      address = merchant.addresses.create!(address: '1111 Shop Rd', city: 'Chicago', state: 'IL', zip: 88888)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+      visit '/profile'
+
+      click_link 'Edit Address'
+
+      expect(page).to have_content("Edit Your Home Address")
+
+      fill_in :address, with: '567 State Ave'
+      fill_in :city, with: ''
+      fill_in :state, with: 'CO'
+      fill_in :zip, with: '80218'
+      fill_in :nickname, with: 'Home'
+      click_button 'Update Address'
+
+      expect(page).to have_content("City can't be blank")
+    end
   end
 end

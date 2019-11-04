@@ -80,5 +80,44 @@ describe "As a user" do
       expect(page).to have_link(@order_1.id)
       expect(page).to have_content('Status: shipped')
     end
+
+    it "cannot checkout with all addresses deleted" do
+      @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @ogre = @brian.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+
+      visit root_path
+
+      click_link 'Register'
+
+      expect(current_path).to eq(registration_path)
+
+      fill_in 'Name', with: 'Cliff Hanger'
+      fill_in 'Address', with: '456 Mountain St'
+      fill_in 'City', with: 'Aspen'
+      fill_in 'State', with: 'CO'
+      fill_in 'Zip', with: '80218'
+      fill_in 'Email', with: 'aspenperson@email.com'
+      fill_in 'Password', with: 'securepassword'
+      fill_in 'Password confirmation', with: 'securepassword'
+      click_button 'Register'
+
+      visit '/profile'
+
+      address = Address.last
+
+      within "#address-#{address.id}" do
+        click_link 'Delete Address'
+      end
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+
+      click_button "Check Out"
+
+      expect(current_path).to eq("/profile/addresses/new")
+      expect(page).to have_content('You must add an address to checkout!')
+    end
   end
 end
