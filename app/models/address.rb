@@ -12,4 +12,8 @@ class Address < ApplicationRecord
   def no_shipped_orders?
     !orders.where(status: 'shipped').any?
   end
+
+  def no_orders?
+    !orders.any?
+  end
 end

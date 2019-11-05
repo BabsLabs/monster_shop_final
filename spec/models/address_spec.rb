@@ -33,6 +33,21 @@ describe Address do
       expect(address.no_shipped_orders?).to be_falsy
       expect(address_2.no_shipped_orders?).to be_truthy
     end
+
+    it "can check if it has any orders" do
+      user = User.create!(name: 'Cliff Hanger', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'cliff@example.com', password: 'securepassword')
+      address = user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      address_2 = user.addresses.create!(address: '9999 State Blvd', city: 'Aspen', state: 'CO', zip: 80222, nickname: 'Cabin')
+
+      brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+
+      order_1 = user.orders.create!(status: 'shipped', address_id: address.id)
+      order_item_1 = order_1.order_items.create!(item: hippo, price: hippo.price, quantity: 2, fulfilled: true)
+
+      expect(address.no_orders?).to be_falsy
+      expect(address_2.no_orders?).to be_truthy
+    end
   end
 
 end
