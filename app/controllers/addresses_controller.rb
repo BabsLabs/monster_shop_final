@@ -33,8 +33,13 @@ class AddressesController < ApplicationController
 
   def destroy
     address = Address.find(params[:id])
-    address.destroy
-    redirect_to '/profile'
+    if address.no_orders?
+      address.delete
+      redirect_to '/profile'
+    else
+      flash[:error] = "You have an order going to that address and cannot delete it. Change the destination first."
+      redirect_to '/profile'
+    end
   end
 
   private

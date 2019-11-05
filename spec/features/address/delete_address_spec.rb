@@ -121,3 +121,30 @@ describe "As a user" do
     end
   end
 end
+
+describe "As a user" do
+  describe "when I am on my profile page" do
+    it "sees an error when deleting an addresses with orders" do
+      @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @ogre = @brian.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+
+      @user = User.create!(name: 'Cliff Hanger', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'cliff@example.com', password: 'securepassword')
+      @address = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
+      @order_1 = @user.orders.create!(status: 'pending', address_id: @address.id)
+      @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit '/profile'
+
+      within "#address-#{@address.id}" do
+        expect(page).to have_content(@address.nickname)
+        click_link('Delete Address')
+      end
+
+      expect(current_path).to eq('/profile')
+      expect(page).to have_content("You have an order going to that address and cannot delete it. Change the destination first.")
+    end
+  end
+end
